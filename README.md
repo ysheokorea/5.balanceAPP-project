@@ -1,6 +1,7 @@
 # 5.balanceAPP-project
 
-# Includes:
+# Env : Ubuntu 20.04.3 LTS
+# Includes
 1) Ajax
 2) Sort
 3) Search
