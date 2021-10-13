@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}    
+
+<!-- Content Wrapper -->
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Incomes</h1>
+    <p class="mb-4">Manage your incomes here. Add new incomes data when you make a lot of money</p>
+
+    <div class="col-xl-8 col-md-8 mb-2">
+            <a href="{% url 'incomes:add_incomes' %}" class="btn btn-primary btn-lg btn-block">
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="h2 mt-2 ml-4 font-weight-bold">Add</div>
+                    <div class="col-auto h2 mt-2"><i class="fas fa-plus text-light mr-4"></i></div>
+            </div>
+        </a>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Incomes DataTables</h6>
+        </div>
+        <div class="card-body ">
+                <div class="form-group d-flex flex-row justify-content-between">
+                    <div class="col-md-8">
+                        <a href="{% url 'incomes:export_csv' %}" class="btn btn-success">CSV</a>
+                        <a href="{% url 'incomes:export_excel' %}" class="btn btn-success">Excel</a>
+                        <a href="{% url 'incomes:export_pdf' %}" class="btn btn-success">PDF</a>
+                    </div>
+                    <input type="text" id="searchField_incomes" class="form-group rounded-sm" placeholder="Search">
+                </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable_incomes" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th data-column="date" data-order="desc">Date</th>
+                            <th data-column="source" data-order="desc">Source</th>
+                            <th data-column="amount" data-order="desc">Amount</th>
+                            <th data-column="description" data-order="desc">Description</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for income in page_obj %}
+                        <tr>
+                            <td>{{income.date}}</td>
+                            <td>{{income.source}}</td>
+                            <td>{{income.amount|intcomma}}</td>
+                            <td>{{income.description}}</td>
+                            <td>
+                                <a href="{% url 'incomes:edit_incomes' income.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sort Database -->
+            <div class="table-output-incomes_sort table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th data-column="date" data-order="asc">Date &#9650</th>
+                            <th data-column="source" data-order="asc">Source &#9650</th>
+                            <th data-column="amount" data-order="asc">Amount &#9650</th>
+                            <th data-column="description" data-order="asc">Description &#9650</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body_incomes_sort">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Search Database -->
+            <h3><p class="no-results_incomes">No Results</p></h3>
+            <div class="table-output-incomes table-responsive" id="table_output_incomes">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Source</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body_incomes">
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="pagination-container d-flex flex-row justify-content-between">
+                <div class="d-flex flex-column justify-content-center">
+                   <p>{{page_obj.number}}/{{page_obj.paginator.num_pages}}</p> 
+                </div> 
+                <div class="d-flex flex-row justify-content-center">
+                    <ul class="pagination float-right mr-auto">
+                        {% for i in range %}
+                        <li class="page-item">
+                            <a href="?page={{i}}" class="page-link">{{i}}</a>
+                        </li>
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

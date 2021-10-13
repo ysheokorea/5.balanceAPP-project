@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incomes Report</title>
+    <style>
+        .footer{
+        margin-top : px;
+        position : fixed;
+        bottom : 0;
+        width : 100%;
+        text-align: center;
+        }
+        .container-head{
+            display : flex;
+            flex-direction: row;
+            flex-flow : wrap;
+            justify-content: space-between;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row">
+    <div class="container-head">
+        
+        <h1><img src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg" alt="" width="50"><strong>Total Incomes Summary</strong></h1>
+        
+    </div>
+    <hr>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th><h1> Date </h1></th>
+                    <th><h1>Source</h1></th>
+                    <th><h1>Amount</h1></th>
+                    <th><h1>Description</h1></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for income in incomes %}
+                <tr>
+                    <th>{{income.date}}</th>
+                    <th>{{income.source}}</th>
+                    <th>{{income.amount}}</th>
+                    <th>{{income.description}}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<footer class="footer">
+    <p>All right reserved FreedomFund <sup>99</sup></p>
+</footer>
+
+</html>

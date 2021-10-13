@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}    
+
+<!-- Content Wrapper -->
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Incomes</h1>
+    <p class="mb-4">Manage your incomes here. Add new incomes data when you make a lot of money</p>
+    <h1 class="h3 mb-2 text-gray-800">Edit your incomes here ! </h1>
+    <div class="col-xl-10 col-lg-10 col-md-10">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Income Sources</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Dropdown Header:</div>
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <form action="{% url 'incomes:edit_incomes' incomes.id%}" method="POST">
+                    {% csrf_token %}
+                    {% include 'partials/_messages.html' %}
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date</label>
+                        <input name="date" type="date" class="form-control" value="{{incomes.date|date:'Y-m-d'}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Source</label>
+                        <select class="form-control" name="source" value="{{incomes.source}}">
+                            {% for source in sources %}
+                            <option name="source" value="{{source.name}}">{{source.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Amount</label>
+                        <input id="amount" name="amount" type="text" class="form-control" value="{{incomes.amount | intcomma}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <input type="text" class="form-control input-lg input-group-lg" name="description" placeholder="pleas write income description" value="{{incomes.description}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-primary" value="Edit">
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url 'incomes:del_incomes' incomes.id %}" class="form-control btn btn-danger">Delete</a>
+                    </div>
+                </form>
+                
+                
+            </div>
+        </div>
+    </div>
+   
+
+
+{% endblock %}

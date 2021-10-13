@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}    
+
+<!-- Content Wrapper -->
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Incomes</h1>
+    <p class="mb-4">Manage your incomes here. Add new incomes data when you make a lot of money</p>
+    <h1 class="h3 mb-2 text-gray-800">Add your incomes here ! </h1>
+    <div class="col-xl-10 col-lg-10 col-md-10">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Income Sources</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Dropdown Header:</div>
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <form action="{% url 'incomes:add_incomes' %}" method="POST">
+                    {% csrf_token %}
+                    {% include 'partials/_messages.html' %}
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date</label>
+                        <input name="date" type="date" class="form-control" value="{{values.date|date:'Y-m-d'}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Source</label>
+                        <select class="form-control" name="source" value="select choice" value="{{values.source}}">
+                            {% for source in sources %}
+                            <option name="source" value="{{source.name}}">{{source.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Amount</label>
+                        <input id="amount" name="amount" type="text" class="form-control" value="{{values.amount|intcomma }}">
+                        <!-- <script>
+                             function inputNumberAutoComma(obj) {
+       
+                                // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+                                var deleteComma = obj.value.replace(/\,/g, "");
+
+                                // 콤마( , )를 제외하고 문자가 입력되었는지를 확인한다.
+                                if(isFinite(deleteComma) == false) {
+                                    alert("문자는 입력하실 수 없습니다.");
+                                    obj.value = "";
+                                    return false;
+                                }
+                                
+                                // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+                                obj.value = inputNumberWithComma(inputNumberRemoveComma(obj.value));
+                            }
+                            
+                            // 천단위 이상의 숫자에 콤마( , )를 삽입하는 함수
+                            function inputNumberWithComma(str) {
+
+                                str = String(str);
+                                return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+                            }
+
+                            // 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+                            function inputNumberRemoveComma(str) {
+
+                                str = String(str);
+                                return str.replace(/[^\d]+/g, "");
+                            }
+
+
+                        </script> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <input type="text" class="form-control input-lg input-group-lg" name="description" placeholder="pleas write income description" value="{{values.description}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-primary" value="Enter">
+                    </div>
+                </form>
+                
+                
+            </div>
+        </div>
+    </div>
+   
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="container mt-4 ml-5">
+    <h1>Incomes Statistics</h1>
+    
+        <div class="form-group">
+            <select name="yearVal" id="yearVal" value="Year">
+                <option value="">Year</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                
+            </select>
+            <select name="monthVal" id="monthVal" value="Month">
+                <option value="">Month</option>
+                <option value="01">Jan</option>
+                <option value="02">Feb</option>
+                <option value="03">Mar</option>
+                <option value="04">Api</option>
+                <option value="05">May</option>
+                <option value="06">Jun</option>
+                <option value="07">Jul</option>
+                <option value="08">Aug</option>
+                <option value="09">Sep</option>
+                <option value="10">Oct</option>
+                <option value="11">Nov</option>
+                <option value="12">Dec</option>            
+            </select>
+            <button id="dateBtn" class="btn btn-primary">select</button>
+        </div>
+    
+    <div class="col-md-10 d-flex flex-row mb-5">
+        <canvas id="myChart1" width="600" height="400"></canvas>
+        
+    </div>
+    <div class="col-md-5 d-flex flex-row justify-content-between">
+        <canvas id="myChart2" width="600" height="400"></canvas>
+        <canvas id="myChart3" width="600" height="600"></canvas>
+    </div>
+    
+</div>
+
+
+
+{% endblock %}

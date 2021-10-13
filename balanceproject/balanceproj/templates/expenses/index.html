@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}    
+
+<!-- Content Wrapper -->
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Expenses</h1>
+    <p class="mb-4">Manage your expenses here. Add new expenses data when you make a lot of money</p>
+
+    <div class="col-xl-8 col-md-8 mb-2">
+            <a href="{% url 'expenses:add_expenses' %}" class="btn btn-primary btn-lg btn-block">
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="h2 mt-2 ml-4 font-weight-bold">Add</div>
+                    <div class="col-auto h2 mt-2"><i class="fas fa-plus text-light mr-4"></i></div>
+            </div>
+        </a>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Expenses DataTables</h6>
+        </div>
+        <div class="card-body ">
+                <div class="form-group d-flex flex-row justify-content-between">
+                    <div class="col-md-8">
+                        <a href="{% url 'expenses:export_csv' %}" class="btn btn-success">CSV</a>
+                        <a href="{% url 'expenses:export_excel' %}" class="btn btn-success">Excel</a>
+                        <a href="{% url 'expenses:export_pdf' %}" class="btn btn-success">PDF</a>
+                    </div>
+                    <input type="text" id="searchField_expenses" class="form-group rounded-sm" placeholder="Search">
+                </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable_expenses" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th data-column="date" data-order="desc">Date</th>
+                            <th data-column="category" data-order="desc">Category</th>
+                            <th data-column="amount" data-order="desc">Amount</th>
+                            <th data-column="description" data-order="desc">Description</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                        <tr>
+                            <td>{{expense.date}}</td>
+                            <td>{{expense.category}}</td>
+                            <td>{{expense.amount|intcomma}}</td>
+                            <td>{{expense.description}}</td>
+                            <td>
+                                <a href="{% url 'expenses:edit_expenses' expense.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sort Database -->
+            <div class="table-output-expenses_sort table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th data-column="date" data-order="asc">Date &#9650</th>
+                            <th data-column="category" data-order="asc">Category &#9650</th>
+                            <th data-column="amount" data-order="asc">Amount &#9650</th>
+                            <th data-column="description" data-order="asc">Description &#9650</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body_expenses_sort">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Search System -->
+            <h3><p class="no-results_expenses">No Results</p></h3>
+            <div class="table-output_expenses table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body_expenses">
+
+                    </tbody>
+                </table>
+            </div>
+            {% comment %}
+            <!-- <div class="pagination-container d-flex flex-row justify-content-between">
+                <div class="d-flex flex-column justify-content-center">
+                   <p>{{page_obj.number}}/{{page_obj.paginator.num_pages}}</p> 
+                </div> 
+                <div class="d-flex flex-row justify-content-center">
+                    <ul class="pagination float-right mr-auto">
+                        {% for i in range %}
+                        <li class="page-item">
+                            <a href="?page={{i}}" class="page-link">{{i}}</a>
+                        </li>
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div> -->
+            {% endcomment %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
